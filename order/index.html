@@ -41,11 +41,13 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
                 <label class="text-sm">First name (optional)</label>
-                <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1">
+                <input id="first_name" type="text"
+                    class="w-full border rounded-lg px-3 py-2 mt-1">
             </div>
             <div>
                 <label class="text-sm">Last name (optional)</label>
-                <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1">
+                <input id="last_name" type="text"
+                    class="w-full border rounded-lg px-3 py-2 mt-1">
             </div>
         </div>
 
@@ -156,6 +158,11 @@ if (img) {
 async function submitOrder() {
 
   // Basic validation
+  const firstName = document.getElementById("first_name").value.trim();
+  const lastName  = document.getElementById("last_name").value.trim();
+
+  const customerName = (firstName + " " + lastName).trim() || "Verified Customer";
+
   const whatsapp = document.getElementById("whatsapp").value.trim();
   const address  = document.getElementById("address").value.trim();
   const city     = document.getElementById("city").value.trim();
@@ -173,6 +180,7 @@ async function submitOrder() {
     product_url: document.getElementById("productUrl").href,
     product_image: document.getElementById("productImg").src,
 
+    customer_name: customerName,   // ✅ FIXED
     whatsapp: whatsapp,
     mobile: mobile,
     address: address,
