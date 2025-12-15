@@ -1,0 +1,30 @@
+h1 {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    padding-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    padding-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    padding-bottom: 15px;
+}
+
+p {
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+    padding-bottom: 15px;
+}
+
+
+ul {
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+    padding-bottom: 10px;
+}

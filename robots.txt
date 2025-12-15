@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block non-SEO pages
+Disallow: /order-confirmation
+Disallow: /order-confirmation/
+
+# Sitemap
+Sitemap: https://toywaly.com/sitemap.xml

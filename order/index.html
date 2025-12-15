@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Toywaly.com - Sex Toys in Pakistan</title>
+<meta name="robots" content="noindex, nofollow">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    body { background: #f7f7f7; }
+</style>
+
+</head>
+<body class="min-h-screen">
+
+<!-- MAIN WRAPPER -->
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 p-5 md:mt-10">
+
+    <!-- LEFT SECTION (FORM) -->
+    <div class="bg-white p-6 rounded-xl shadow">
+
+        <!-- CONTACT -->
+        <h2 class="text-xl font-semibold mb-4">Contact</h2>
+
+        <label class="block text-sm">WhatsApp No for order verification</label>
+        <input id="whatsapp" type="text" placeholder="03XXXXXXXXX"
+               class="w-full border rounded-lg px-3 py-2 mt-1 mb-5">
+
+        <!-- DELIVERY -->
+        <h2 class="text-xl font-semibold mb-4">Delivery</h2>
+
+        <!-- Country (only Pakistan) -->
+        <label class="text-sm">Country/Region</label>
+        <select class="w-full border rounded-lg px-3 py-2 mt-1 mb-4 bg-gray-100" disabled>
+            <option selected>Pakistan</option>
+        </select>
+
+        <!-- Name fields -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+                <label class="text-sm">First name (optional)</label>
+                <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1">
+            </div>
+            <div>
+                <label class="text-sm">Last name (optional)</label>
+                <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1">
+            </div>
+        </div>
+
+        <!-- Address -->
+        <label class="text-sm mt-4 block">Address</label>
+        <input id="address" type="text" class="w-full border rounded-lg px-3 py-2 mt-1">
+
+        <label class="text-sm mt-4 block">Apartment, suite, etc. (optional)</label>
+        <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+            <div>
+                <label class="text-sm">City</label>
+                <input id="city" type="text" class="w-full border rounded-lg px-3 py-2 mt-1">
+            </div>
+            <div>
+                <label class="text-sm">Postal code (optional)</label>
+                <input type="text" class="w-full border rounded-lg px-3 py-2 mt-1">
+            </div>
+        </div>
+
+        <!-- Mobile -->
+        <label class="text-sm mt-4 block">Mobile No</label>
+        <input id="mobile" type="text" class="w-full border rounded-lg px-3 py-2 mt-1 mb-6">
+
+        <!-- SHIPPING METHOD -->
+        <h2 class="text-xl font-semibold mb-3">Shipping method</h2>
+        <div class="border rounded-lg p-3 flex justify-between items-center">
+            <span>Standard</span>
+            <span class="font-semibold">FREE</span>
+        </div>
+
+        <!-- PAYMENT -->
+        <h2 class="text-xl font-semibold mt-6 mb-3">Payment</h2>
+        <div class="border rounded-lg p-3">
+            <p class="font-semibold">Cash on Delivery (COD)</p>
+        </div>
+
+        <button onclick="submitOrder()"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-full py-3 rounded-lg mt-6">
+            Complete Order
+        </button>
+
+
+    </div>
+
+    <!-- RIGHT SECTION (PRODUCT SUMMARY) -->
+    <div class="bg-white p-6 rounded-xl shadow h-fit">
+
+        <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+
+        <div class="flex items-center gap-4 border-b pb-4 mb-4">
+            <img id="productImg" class="w-20 h-20 rounded-lg border object-cover">
+            <div class="flex-1">
+                <h3 id="productTitle" class="font-semibold"></h3>
+                <a id="productUrl" class="text-sm text-blue-600"></a>
+            </div>
+            <span id="productPrice" class="font-semibold text-lg"></span>
+        </div>
+
+        <div class="flex justify-between text-sm mb-1">
+            <span>Subtotal</span>
+            <span id="subtotal"></span>
+        </div>
+
+        <div class="flex justify-between text-sm">
+            <span>Shipping</span>
+            <span>FREE</span>
+        </div>
+
+        <hr class="my-3">
+
+        <div class="flex justify-between text-lg font-semibold">
+            <span>Total (PKR)</span>
+            <span id="total"></span>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const title = params.get("title") || "Product";
+const price = params.get("price") || "0";
+const link  = params.get("url") || "#";
+const img   = params.get("img") || "";
+
+// Fill UI
+document.getElementById("productTitle").textContent = title;
+document.getElementById("productUrl").textContent = link;
+document.getElementById("productUrl").href = link;
+
+document.getElementById("productPrice").textContent = "Rs " + price;
+document.getElementById("subtotal").textContent = "Rs " + price;
+document.getElementById("total").textContent = "Rs " + price;
+
+if (img) {
+  document.getElementById("productImg").src = img;
+  document.getElementById("productImg").alt = title;
+}
+</script>
+
+<script>
+async function submitOrder() {
+
+  // Basic validation
+  const whatsapp = document.getElementById("whatsapp").value.trim();
+  const address  = document.getElementById("address").value.trim();
+  const city     = document.getElementById("city").value.trim();
+  const mobile   = document.getElementById("mobile").value.trim();
+
+  if (!whatsapp || !address || !city || !mobile) {
+    alert("Please fill all required fields.");
+    return;
+  }
+
+  // Build order payload
+  const payload = {
+    product_title: document.getElementById("productTitle").innerText,
+    product_price: document.getElementById("total").innerText,
+    product_url: document.getElementById("productUrl").href,
+    product_image: document.getElementById("productImg").src,
+
+    whatsapp: whatsapp,
+    mobile: mobile,
+    address: address,
+    city: city,
+
+    page: window.location.href,
+    created_at: new Date().toISOString()
+  };
+
+  try {
+    const res = await fetch("/order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      window.location.href = "/order-confirmation?success=1";
+    } else {
+      alert("❌ Order failed. Please try again.");
+    }
+  } catch (e) {
+    alert("❌ Network error. Please try again.");
+  }
+}
+</script>
+
+
+</body>
+</html>
