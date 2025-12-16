@@ -95,10 +95,12 @@
             <p class="font-semibold">Cash on Delivery (COD)</p>
         </div>
 
-        <button onclick="submitOrder()"
-                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-full py-3 rounded-lg mt-6">
-            Complete Order
+        <button id="submitBtn"
+                onclick="submitOrder()"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-full py-3 rounded-lg mt-6 transition">
+        Complete Order
         </button>
+
 
 
     </div>
@@ -165,6 +167,17 @@ if (img) {
 
 <script>
 async function submitOrder() {
+
+  const btn = document.getElementById("submitBtn");
+
+  // Prevent double click
+  if (btn.disabled) return;
+
+  btn.disabled = true;
+  btn.innerText = "Processing...";
+  btn.classList.remove("hover:bg-blue-700");
+  btn.classList.add("bg-gray-400", "cursor-not-allowed");
+
 
   // Basic validation
   const firstName = document.getElementById("first_name").value.trim();
