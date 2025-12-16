@@ -21,7 +21,7 @@ export async function onRequestPost({ request, env }) {
       order.product_price,
       order.product_url,
       order.product_image,
-      order.name || "",
+      order.customer_name || "",
       order.mobile,
       order.whatsapp,
       order.address,
