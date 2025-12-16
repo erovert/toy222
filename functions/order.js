@@ -13,6 +13,7 @@ export async function onRequestPost({ request, env }) {
         whatsapp,
         address,
         city,
+        order_notes,
         page,
         created_at
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -26,6 +27,7 @@ export async function onRequestPost({ request, env }) {
       order.whatsapp,
       order.address,
       order.city,
+      body.order_notes,
       order.page,
       order.created_at
     ).run();

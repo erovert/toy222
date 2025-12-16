@@ -74,6 +74,14 @@
         <label class="text-sm mt-4 block">Mobile No</label>
         <input id="mobile" type="text" class="w-full border rounded-lg px-3 py-2 mt-1 mb-6">
 
+        <!-- ORDER NOTES -->
+        <label class="text-sm mt-6 block">Order notes (optional)</label>
+        <textarea id="order_notes"
+          rows="3"
+          placeholder="Notes about your order, e.g. special delivery instructions."
+          class="w-full border rounded-lg px-3 py-2 mt-1 resize-none"></textarea>
+
+
         <!-- SHIPPING METHOD -->
         <h2 class="text-xl font-semibold mb-3">Shipping method</h2>
         <div class="border rounded-lg p-3 flex justify-between items-center">
@@ -168,6 +176,7 @@ async function submitOrder() {
   const address  = document.getElementById("address").value.trim();
   const city     = document.getElementById("city").value.trim();
   const mobile   = document.getElementById("mobile").value.trim();
+  const orderNotes = document.getElementById("order_notes").value.trim();
 
   if (!whatsapp || !address || !city || !mobile) {
     alert("Please fill all required fields.");
@@ -186,6 +195,8 @@ async function submitOrder() {
     mobile: mobile,
     address: address,
     city: city,
+
+    order_notes: orderNotes,   // ✅ NEW FIELD
 
     page: window.location.href,
     created_at: new Date().toISOString()
