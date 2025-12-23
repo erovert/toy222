@@ -4,6 +4,7 @@ Allow: /
 # Block non-SEO pages
 Disallow: /order-confirmation
 Disallow: /order-confirmation/
+Disallow: /order
+Disallow: /order/
 
-# Sitemap
-Sitemap: https://toywaly.com/sitemap.xml
+
